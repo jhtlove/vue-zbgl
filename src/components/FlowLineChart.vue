@@ -55,9 +55,9 @@ export default {
         smooth: true,
         grid: {
           left: "9%",
-          right: "4%",
+          right: "2%",
           bottom: "10%",
-          top: "8%"
+          top: "10%"
         },
         title: {
           show: false,

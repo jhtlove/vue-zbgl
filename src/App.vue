@@ -2,7 +2,79 @@
   <div id="app">
     <div class="main">
       <div class="left-part">
-        <div class="chart-box" v-for="item in midNormData" :key="item.ipdz">
+        <div class="chart-box">
+          <CellGroup>
+            <Cell title="192.168.3.11" label="业务量：35">
+              <span class="success-status" slot="extra"></span>
+            </Cell>
+          </CellGroup>
+
+          <!-- <Cell title="192.168.3.11" label="业务量：19"/> -->
+        </div>
+        <div class="chart-box">
+          <CellGroup>
+            <Cell title="192.168.3.12" label="业务量：35">
+              <span class="success-status" slot="extra"></span>
+            </Cell>
+          </CellGroup>
+        </div>
+        <div class="chart-box">
+          <CellGroup>
+            <Cell title="192.168.3.13" label="业务量：35">
+              <span class="success-status" slot="extra"></span>
+            </Cell>
+          </CellGroup>
+        </div>
+        <div class="chart-box">
+          <CellGroup>
+            <Cell title="192.168.3.14" label="业务量：35">
+              <span class="error-status" slot="extra"></span>
+            </Cell>
+          </CellGroup>
+        </div>
+        <div class="chart-box">
+          <CellGroup>
+            <Cell title="192.168.3.15" label="业务量：35">
+              <span class="success-status" slot="extra"></span>
+            </Cell>
+          </CellGroup>
+        </div>
+        <div class="chart-box">
+          <CellGroup>
+            <Cell title="192.168.3.16" label="业务量：35">
+              <span class="success-status" slot="extra"></span>
+            </Cell>
+          </CellGroup>
+        </div>
+        <div class="chart-box">
+          <CellGroup>
+            <Cell title="192.168.3.17" label="业务量：35">
+              <span class="success-status" slot="extra"></span>
+            </Cell>
+          </CellGroup>
+        </div>
+        <div class="chart-box">
+          <CellGroup>
+            <Cell title="192.168.3.18" label="业务量：35">
+              <span class="success-status" slot="extra"></span>
+            </Cell>
+          </CellGroup>
+        </div>
+        <div class="chart-box">
+          <CellGroup>
+            <Cell title="192.168.3.19" label="业务量：35">
+              <span class="success-status" slot="extra"></span>
+            </Cell>
+          </CellGroup>
+        </div>
+        <div class="chart-box">
+          <CellGroup>
+            <Cell title="192.168.3.37" label="业务量：35">
+              <span class="success-status" slot="extra"></span>
+            </Cell>
+          </CellGroup>
+        </div>
+        <!-- <div class="chart-box" v-for="item in midNormData" :key="item.ipdz">
           <LineChart
             ref="myline"
             titleText="业务量"
@@ -10,7 +82,7 @@
             :dy1002="item.dy1002"
             :dy1003="item.dy1003"
           />
-        </div>
+        </div>-->
       </div>
       <div class="center-part">
         <div class="top-chart">
@@ -39,13 +111,22 @@
 
             <!-- class-name="badge" -->
             <span class="text-desc">医保未上传：</span>
-            <Badge :count="ybwsc" :type="ybtype" slot="extra" overflow-count="20000" />
+            <Badge :count="ybwsc" :type="ybtype" overflow-count="20000" />
           </ListItem>
           <ListItem>
             <!-- class-name="badge" -->
             <span class="text-desc">异常登录：</span>
             <Badge :count="ycdl" :type="ycdltype" slot="extra" overflow-count="20000" />
           </ListItem>
+          <ListItem style="display:none">
+            <audio ref="ding" controls="controls">
+              <source src="./assets/ding.mp3" type="audio/mp3" />
+            </audio>
+          </ListItem>
+          <!-- <ListItem>
+            <Button size='small' type="info" @click="play">播放提示音</Button>
+          </ListItem>-->
+          <!-- <ListItem>123</ListItem> -->
         </List>
       </div>
     </div>
@@ -53,16 +134,16 @@
       <div class="my-carousel">
         <Carousel autoplay loop dots="none" arrow="never" v-model="carouselValue">
           <CarouselItem>
-            <div class="carousel-item">指标1</div>
+            <div class="carousel-item">1</div>
           </CarouselItem>
           <CarouselItem>
-            <div class="carousel-item">指标2</div>
+            <div class="carousel-item">2</div>
           </CarouselItem>
           <CarouselItem>
-            <div class="carousel-item">指标3</div>
+            <div class="carousel-item">3</div>
           </CarouselItem>
           <CarouselItem>
-            <div class="carousel-item">指标4</div>
+            <div class="carousel-item">4</div>
           </CarouselItem>
         </Carousel>
       </div>
@@ -98,7 +179,7 @@ export default {
     };
   },
   components: {
-    LineChart,
+    [LineChart.name]: LineChart,
     FlowLineChart,
     Columnar,
     [Message.name]: Message
@@ -162,6 +243,7 @@ export default {
               var row01 = res.row01;
               callback(row01);
             } else {
+              this.play();
               Message.error({
                 duration: 3,
                 top: 50,
@@ -172,6 +254,7 @@ export default {
           // window.console.log(res);
         })
         .catch(function(err) {
+          this.play();
           Message.error({
             duration: 3,
             top: 50,
@@ -209,6 +292,7 @@ export default {
               var indexName = this.getIndexName(zbbm);
               callback(row01, indexName);
             } else {
+              this.play();
               Message.error({
                 duration: 3,
                 top: 50,
@@ -220,6 +304,7 @@ export default {
           return true;
         })
         .catch(function(err) {
+          this.play();
           Message.error({
             duration: 3,
             top: 50,
@@ -292,6 +377,11 @@ export default {
           name: indexName,
           type: "line",
           data: dataObject[zbbm].dataY
+          //  markPoint: {
+          //       data: [
+          //           {type: 'max', name: '最大值'}
+          //       ]
+          //   }
         });
       }
       var kzrq = this.getKZRQ(this.flowDataX[this.flowDataX.length - 1]);
@@ -372,7 +462,7 @@ export default {
       tube
         .http({
           method: "get",
-          url: "/EzaYun/Norm/midNorm.form",
+          url: "/EzaYun/Norm/midNorm.form", // 10100402
           data: {},
           headers: {}
         })
@@ -383,10 +473,18 @@ export default {
               // this.dataList 需要清空？
               this.midNormData = res.rows;
               // window.console.log(res.rows);
+            } else {
+              this.play();
+              Message.error({
+                duration: 3,
+                top: 50,
+                content: "midNorm.form 查询数据失败！"
+              });
             }
           }
         })
         .catch(function(err) {
+          this.play();
           Message.error({
             duration: 3,
             top: 50,
@@ -417,6 +515,10 @@ export default {
       var minute = today.getMinutes();
       minute = minute < 10 ? "0" + minute : "" + minute;
       return year + "-" + month + "-" + day + " " + hour + ":" + minute;
+    },
+    play() {
+      window.console.log("你的播放开启了");
+      this.$refs.ding.play();
     }
   },
   created: function() {},
@@ -441,21 +543,13 @@ export default {
 
 <style>
 /* box-sizing:border-box 出现连着一起，看不到gutter间隙效果  */
-.one-line {
-  height: 180px;
-  padding: 5px;
-  /* background-color: #fff; */
-  display: flex;
-  flex-direction: row;
-  /* justify-content: space-between; */
-}
 #app {
   width: 960px;
   height: 540px;
   background-color: #000;
   display: flex;
   flex-direction: column;
-  /* color: #fff !important ; */
+  color: #fff !important ;
 }
 .main {
   display: flex;
@@ -485,6 +579,7 @@ export default {
   width: 150px;
   display: flex;
   flex-direction: column;
+  border-bottom: 1px solid #e8eaec;
 }
 .center-part {
   width: 660px;
@@ -493,24 +588,42 @@ export default {
 }
 .chart-box {
   height: 51px;
+  /* line-height: 25px; */
   /* background-color: aqua; */
   box-sizing: border-box;
   /* margin: 1px; */
   /* padding: 1px; */
   /* background-color: #000; */
+  border-bottom: 1px solid #e8eaec;
+  color: #fff !important;
 }
+.error-status {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-color: #ed4014;
+  border-radius: 8px;
+}
+.success-status {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-color: #19be6b;
+  border-radius: 8px;
+}
+
 .top-chart {
   height: 50%;
   box-sizing: border-box;
   /* padding: 0.5px; */
   padding: 0 1px 1px 1px;
-  background: #fff;
+  background: #e8eaec;
 }
 .bottom-chart {
   height: 50%;
   box-sizing: border-box;
   padding: 0 1px 1px 1px;
-  background: #fff;
+  background: #e8eaec;
 }
 .text-desc {
   font-size: 12px;

@@ -43,7 +43,7 @@ export default {
           left: "9%",
           right: "2%",
           bottom: "10%",
-          top: "18%"
+          top: "10%"
         },
         title: {
           show:false,

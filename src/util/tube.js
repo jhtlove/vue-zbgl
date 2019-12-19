@@ -1,6 +1,6 @@
 import axios from 'axios'
 import store from '@/util/store.js' 
-
+//对象中的扩展运算符(...)用于取出参数对象中的所有可遍历属性，拷贝到当前对象之中
 const http = options => {
   return new Promise((resolve, reject) => {
     const defaultOptions = {};
